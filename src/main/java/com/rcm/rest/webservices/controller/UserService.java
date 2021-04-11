@@ -63,4 +63,14 @@ public class UserService {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.get_id()).toUri();
 		return ResponseEntity.created(location).build();
 	}
+	
+	@PostMapping("/users/delete")
+	public ResponseEntity<Object> deleteUserById(@RequestBody User id) {
+		if(!_uDAO.deleteUser(id.get_id())) {
+			throw new UserNotFoundException("Not found user :"+id);
+		} 
+		
+		return ResponseEntity.ok().build();
+	}
+	
 }

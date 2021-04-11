@@ -2,6 +2,7 @@ package com.rcm.rest.webservices.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class UserDao {
 	}
 	
 	public List<User> getAllUsers() {
-		return new ArrayList<User>();
+		return _users;
 	}
 	
 	public boolean addUser(User user) {
@@ -47,4 +48,19 @@ public class UserDao {
 		_users.add(user);
 		return added;
 	}
+	
+	public boolean deleteUser(int id) {
+		Iterator<User> it = _users.iterator();
+		boolean deleted = false;
+		while(it.hasNext()) {
+			User u = it.next();
+			if(u.get_id() == id) {
+				it.remove();
+				deleted = true;
+			}
+		}
+
+		return deleted;
+	}
+	
 }
